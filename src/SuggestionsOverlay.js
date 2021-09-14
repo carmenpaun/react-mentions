@@ -30,6 +30,11 @@ class SuggestionsOverlay extends Component {
             : PropTypes.instanceOf(Element),
       }),
     ]),
+    renderFooter: PropTypes.oneOfType([
+      PropTypes.func,
+      PropTypes.instanceOf(Element),
+      PropTypes.node,
+    ]),
 
     children: PropTypes.oneOfType([
       PropTypes.element,
@@ -39,6 +44,7 @@ class SuggestionsOverlay extends Component {
 
   static defaultProps = {
     suggestions: {},
+    renderFooter: () => null,
     onSelect: () => null,
   }
 
@@ -98,11 +104,24 @@ class SuggestionsOverlay extends Component {
           {...style('list')}
         >
           {this.renderSuggestions()}
+          {this.renderFooter()}
         </ul>
 
         {this.renderLoadingIndicator()}
       </div>
     )
+  }
+
+  renderFooter() {
+    if (this.props.renderFooter) {
+      return (
+        <li id="suggestion_footer">
+          {this.props.renderFooter()}
+        </li>
+      )
+    }
+
+    return null;
   }
 
   renderSuggestions() {

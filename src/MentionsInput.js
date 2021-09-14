@@ -94,6 +94,11 @@ const propTypes = {
           : PropTypes.instanceOf(Element),
     }),
   ]),
+  renderFooter: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.instanceOf(Element),
+    PropTypes.node,
+  ]),
 
   children: PropTypes.oneOfType([
     PropTypes.element,
@@ -107,6 +112,7 @@ class MentionsInput extends React.Component {
   static defaultProps = {
     ignoreAccents: false,
     singleLine: false,
+    renderFooter: () => null,
     allowSuggestionsAboveCursor: false,
     onKeyDown: () => null,
     onSelect: () => null,
@@ -282,6 +288,7 @@ class MentionsInput extends React.Component {
         isOpened={this.isOpened()}
         ignoreAccents={this.props.ignoreAccents}
         a11ySuggestionsListLabel={this.props.a11ySuggestionsListLabel}
+        renderFooter={this.props.renderFooter}
       >
         {this.props.children}
       </SuggestionsOverlay>
